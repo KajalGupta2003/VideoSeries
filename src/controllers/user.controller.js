@@ -214,7 +214,7 @@ const changeCurrentPassword=asyncHandler(async(req,res)=>{
 const getCurrentUser=asyncHandler(async(req,res)=>{
     return res.
     status(200)
-    .json(200,req.user,"Current user fetched successfully")
+    .json(new ApiResponse(200,req.user,"Current user fetched successfully"))
 
 })
 
@@ -225,7 +225,7 @@ const updateAccountDetails=asyncHandler(async(req,res)=>{
         throw new ApiError(400,"At least one field is required to update")
 
     }
-   const user= User.findByIdAndUpdate(
+   const user= await User.findByIdAndUpdate(
     req.user?._id,{
         $set:{
             fullname,
@@ -246,6 +246,8 @@ const updateUserAvatar=asyncHandler(async(req,res)=>{
   if(!avatarLocalPath){
     throw new ApiError(400,"Avatar file is missing")
   }
+  //delete existing avatar from cloudinary
+  
   const avatar=await uploadOnCloudinary(avatarLocalPath)
 if(!avatar){
     throw new ApiError(400,"Error while uploading avatar on cloudinary")
