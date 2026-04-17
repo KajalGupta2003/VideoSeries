@@ -267,7 +267,7 @@ return res.status(200)
 })
 
 
-const updateUserCoverImager=asyncHandler(async(req,res)=>{
+const updateUserCoverImage=asyncHandler(async(req,res)=>{
   const CoverLocalPath=  req.file?.path
   if(!CoverLocalPath){
     throw new ApiError(400,"Cover Image is missing")
@@ -294,5 +294,6 @@ return res.status(200)
 })
 export {registerUser, loginUser,logoutUser,
     refreshAccessToken,changeCurrentPassword,
-    getCurrentUser,updateAccountDetails,updateUserAvatar,updateUserCoverImage
+    getCurrentUser,updateAccountDetails,updateUserAvatar,
+    updateUserCoverImage
  }
